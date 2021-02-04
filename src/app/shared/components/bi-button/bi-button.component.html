@@ -1,0 +1,7 @@
+<button (click)="click.emit()">
+  <i [ngClass]="[mouseOvered ? hoverIcon : icon, 'bi']"
+     [style]="'color: ' + (mouseOvered ? hoverColor : color)"
+     (mouseover)="mouseOvered=true"
+     (mouseout)="mouseOvered=false"
+  ></i>
+</button>

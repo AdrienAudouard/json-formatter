@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+@import "assets/styles/index";
+
+body, html, p {
+  margin:0;
+  padding:0;
+}
+
+body {
+  min-height: 100vh;
+
+  background: #1488CC;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #2B32B2, #1488CC);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: inherit;
+}

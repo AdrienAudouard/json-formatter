@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <h1>JSON Data</h1>
+  <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="jsonForm" (ngSubmit)="submitJson()">
+    <div class="text-container">
+      <textarea rows="15" formControlName="json">
+    </textarea>
+      <app-bi-button
+        (click)="jsonForm.reset()"
+        icon="bi-x-circle"
+        hoverIcon="bi-x-circle-fill"
+        color="#1488CC"
+        hoverColor="#353dcd"
+      >
+      </app-bi-button>
+    </div>
+    <button type="submit" class="btn btn-light">Process JSON</button>
+  </form>
+</div>

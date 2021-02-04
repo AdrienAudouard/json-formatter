@@ -1,0 +1,19 @@
+.container-fluid {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  padding: 0;
+
+  .title-container {
+    padding: 7px;
+    background: #0097e6;
+    text-align: center;
+    color: var(--white);
+    border-radius: var(--border-radius) 0;
+  }
+
+  .json-container {
+    padding: 7px;
+    overflow: auto;
+    max-height: 60vh;
+  }
+}

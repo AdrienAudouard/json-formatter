@@ -1,0 +1,10 @@
+
+<button *ngIf="!isCollapsed" (click)="onButtonClick()">
+  <i class="bi bi-dash-square-dotted"></i>
+  <i class="bi bi-dash-square-fill"></i>
+</button>
+
+<button *ngIf="isCollapsed" (click)="onButtonClick()">
+  <i class="bi bi-plus-square-dotted"></i>
+  <i class="bi bi-plus-square-fill"></i>
+</button>

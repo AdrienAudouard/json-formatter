@@ -1,0 +1,25 @@
+button {
+  border: none;
+  background: none;
+  color: #1488CC;
+
+  i[class$=fill] {
+    display: none;
+  }
+
+  i[class$=dotted] {
+    display: inline-block;
+  }
+}
+
+button:hover {
+  color: #353dcd;
+
+  i[class$=fill] {
+    display: inline-block;
+  }
+
+  i[class$=dotted] {
+    display: none;
+  }
+}

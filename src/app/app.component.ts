@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {JsonObject} from './models/json-object';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'json-formatter';
+  jsonObjects: JsonObject[] = [];
+
+  public onNewJsonObject($event: JsonObject): void {
+    this.jsonObjects.push($event);
+  }
 }

@@ -1,0 +1,17 @@
+<div class="child-container">
+  <p> "<b>{{ child.name }}</b>"
+    : <span class="value">{{ value }}</span>
+    <app-collapser *ngIf="!isChildString" (collapseChange)="onCollapse($event)"></app-collapser>
+    <span *ngIf="hideChildren">... }</span>
+  </p>
+  <ng-container *ngIf="!isChildString">
+    <app-json-viewer-child
+      [ngClass]="{ 'hide': hideChildren, 'show': !hideChildren }"
+      *ngFor="let object of children; let last = last"
+      [child]="object"
+      [isLast]="last"
+    >
+    </app-json-viewer-child>
+    <p>}</p>
+  </ng-container>
+</div>

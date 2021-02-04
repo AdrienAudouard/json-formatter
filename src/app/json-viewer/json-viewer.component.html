@@ -1,0 +1,10 @@
+<div class="container-fluid">
+  <div class="title-container">
+    {{ title }}
+  </div>
+  <div class="json-container">
+    <p>{{ ' {' }}</p>
+    <app-json-viewer-child *ngFor="let child of children; let last = last" [child]="child" [isLast]="last"></app-json-viewer-child>
+    <p>{{ ' }' }}</p>
+  </div>
+</div>
