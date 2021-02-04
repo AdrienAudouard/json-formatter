@@ -23,14 +23,11 @@ export class JsonInputComponent implements OnInit {
   }
 
   submitJson(): void {
-    console.log('fddddd');
-    console.log(this.jsonForm);
     if (this.jsonForm.valid) {
       const { json } = this.jsonForm.getRawValue();
 
       try {
         const object = this.formatterService.formatJson(json);
-        console.log(object);
         this.jsonObjectCreated.emit(object);
       } catch (e) {
         this.errorMessage = e.message;
