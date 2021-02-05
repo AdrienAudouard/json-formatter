@@ -13,7 +13,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm build:prod && npm deploy"
+      "pre-push": "npm run build:prod && npm run deploy"
     }
   },
   "private": true,

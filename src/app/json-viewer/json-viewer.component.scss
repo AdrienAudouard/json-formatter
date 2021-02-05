@@ -8,7 +8,7 @@
     background: #0097e6;
     text-align: center;
     color: var(--white);
-    border-radius: var(--border-radius) 0;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
   }
 
   .json-container {

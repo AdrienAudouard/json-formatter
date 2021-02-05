@@ -8,6 +8,8 @@ import { JsonViewerComponent } from './json-viewer/json-viewer.component';
 import { JsonViewerChildComponent } from './json-viewer/json-viewer-child/json-viewer-child.component';
 import { CollapserComponent } from './json-viewer/collapser/collapser.component';
 import {SharedModule} from './shared/shared.module';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -15,10 +17,12 @@ import {SharedModule} from './shared/shared.module';
     JsonInputComponent,
     JsonViewerComponent,
     JsonViewerChildComponent,
-    CollapserComponent
+    CollapserComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     ReactiveFormsModule,
     SharedModule
   ],

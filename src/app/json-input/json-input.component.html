@@ -5,7 +5,7 @@
   </div>
   <form [formGroup]="jsonForm" (ngSubmit)="submitJson()">
     <div class="text-container">
-      <textarea rows="15" formControlName="json">
+      <textarea rows="15" formControlName="json" placeholder="{ } or https://...">
     </textarea>
       <app-bi-button
         (click)="jsonForm.reset()"
@@ -16,6 +16,6 @@
       >
       </app-bi-button>
     </div>
-    <button type="submit" class="btn btn-light">Process JSON</button>
+    <button type="submit" class="btn btn-warning">Format JSON</button>
   </form>
 </div>
