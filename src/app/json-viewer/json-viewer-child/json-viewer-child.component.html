@@ -1,17 +1,26 @@
 <div class="child-container">
-  <p> "<b>{{ child.name }}</b>"
-    : <span class="value">{{ value }}</span>
-    <app-collapser *ngIf="!isChildString" (collapseChange)="onCollapse($event)"></app-collapser>
-    <span *ngIf="hideChildren">... }</span>
+  <p class="value">
+    <span *ngIf="!isInArray">"<b>{{ child.name }}</b>"  : </span>
+    <ng-container *ngIf="child.isPrimitiveValue; else collapse">
+      <app-editable-text [jsonObject]="child"></app-editable-text>
+      <span *ngIf="!isLast">,</span>
+    </ng-container>
+    <ng-template #collapse>
+      <span>{{ '{' }}</span>
+      <app-collapser *ngIf="!child.isPrimitiveValue" (collapseChange)="onCollapse($event)"></app-collapser>
+      <span *ngIf="hideChildren">... }<span *ngIf="!isLast">,</span></span>
+      <span *ngIf="isInArray" class="json-comment">// Index: {{ child.name }}</span>
+    </ng-template>
   </p>
-  <ng-container *ngIf="!isChildString">
+  <ng-container *ngIf="!child.isPrimitiveValue">
     <app-json-viewer-child
       [ngClass]="{ 'hide': hideChildren, 'show': !hideChildren }"
-      *ngFor="let object of children; let last = last"
+      *ngFor="let object of child.children; let last = last"
       [child]="object"
       [isLast]="last"
     >
     </app-json-viewer-child>
-    <p>}</p>
+    <p *ngIf="!hideChildren">} <span *ngIf="!isLast">,</span></p>
+
   </ng-container>
 </div>

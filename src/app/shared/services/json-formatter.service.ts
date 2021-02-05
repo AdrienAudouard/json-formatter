@@ -12,6 +12,7 @@ export class JsonFormatterService {
   constructor(private http: HttpClient) { }
 
   public formatJson(jsonStr: string): Observable<JsonObject> {
+    this.setLastValue(jsonStr);
     const obs$ = this.isValidURL(jsonStr) ? this.fetchJson(jsonStr) : of(jsonStr);
 
     return obs$.pipe(
@@ -21,27 +22,50 @@ export class JsonFormatterService {
   }
 
   public createJsonObject(object: any): JsonObject {
-    const jsonObject: JsonObject = { value: [] };
+    const type = Array.isArray(object) ? 'array' : 'object';
+    const jsonObject: JsonObject = { children: [], type, isPrimitiveValue: false };
 
-    jsonObject.value = [];
+    jsonObject.children = [];
 
     const keys = Object.keys(object);
 
     for (const key of keys) {
-      jsonObject.value.push({ name: key, value: this.createJsonObjectRecursive(object[key]) });
+      const toCreate = object[key];
+      if (typeof toCreate !== 'object') {
+        // @ts-ignore
+        jsonObject.children.push({ name: key, text: toCreate, type: typeof toCreate, isPrimitiveValue: true});
+        continue;
+      }
+
+      jsonObject.children.push({
+        name: key,
+        children: this.createJsonObjectRecursive(object[key]),
+        type: 'object',
+        isPrimitiveValue: false
+      });
     }
 
     return jsonObject;
   }
 
-  private createJsonObjectRecursive(object: any): string | JsonObject[] {
-    if (typeof object !== 'object') { return '' + object; }
-
+  private createJsonObjectRecursive(object: any): JsonObject[] {
     const keys = Object.keys(object);
     const objects: JsonObject[] = [];
 
     for (const key of keys) {
-      objects.push({ name: key, value: this.createJsonObjectRecursive(object[key]) });
+      const toCreate = object[key];
+      if (typeof toCreate !== 'object') {
+        // @ts-ignore
+        objects.push({ name: key, text: toCreate, type: typeof toCreate, isPrimitiveValue: true});
+        continue;
+      }
+
+      objects.push({
+        name: key,
+        children: this.createJsonObjectRecursive(object[key]),
+        type: 'object',
+        isPrimitiveValue: false
+      });
     }
 
     return objects;
@@ -49,6 +73,14 @@ export class JsonFormatterService {
 
   private fetchJson(url: string): Observable<any> {
     return this.http.get(url);
+  }
+
+  public getLastValue(): string {
+    return localStorage.getItem('last') || '';
+  }
+
+  private setLastValue(value: string): void {
+    localStorage.setItem('last', value);
   }
 
   private isValidURL(str: string): boolean {

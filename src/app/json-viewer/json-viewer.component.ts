@@ -10,12 +10,9 @@ export class JsonViewerComponent implements OnInit {
   @Input() jsonObject: JsonObject;
   @Input() title: string;
 
-  children: JsonObject[];
-
-  constructor() { }
+  isArray: boolean;
 
   ngOnInit(): void {
-    this.children = this.jsonObject.value as JsonObject[];
+    this.isArray = this.jsonObject.type === 'array';
   }
-
 }

@@ -1,0 +1,25 @@
+<span *ngIf="!isEditing; else editing">
+  <span *ngIf="jsonObject.type === 'string'">"</span>
+  <span>{{ this.jsonObject.text }}</span>
+    <span *ngIf="jsonObject.type === 'string'">"</span>
+  <app-bi-button
+    (click)="isEditing = true"
+    color="#1488CC"
+    hoverColor="#353dcd"
+    hoverIcon="bi-pen-fill"
+    icon="bi-pen"
+  > </app-bi-button>
+</span>
+
+<ng-template #editing>
+  <input
+    type="text"
+    class="form-control"
+    [formControl]="formControl"
+    ngbPopover="Please enter a valid value !"
+    triggers="manual"
+    #p="ngbPopover"
+  >
+  <button class="edit-button save-button" (click)="updateText()"><i class="bi bi-check2"></i></button>
+  <button class="edit-button cancel-button" (click)="resetForm()"><i class="bi bi-x"></i></button>
+</ng-template>

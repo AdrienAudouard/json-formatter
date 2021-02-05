@@ -17,8 +17,9 @@ export class JsonInputComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private formatterService: JsonFormatterService) { }
 
   ngOnInit(): void {
+    const lastJson = this.formatterService.getLastValue();
     this.jsonForm = this.formBuilder.group({
-      json: ['', Validators.required]
+      json: [lastJson, Validators.required]
     });
   }
 
