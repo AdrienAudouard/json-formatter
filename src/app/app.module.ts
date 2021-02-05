@@ -12,6 +12,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
 import { EditableTextComponent } from './json-viewer/editable-text/editable-text.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [

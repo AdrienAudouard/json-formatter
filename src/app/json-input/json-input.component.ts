@@ -27,13 +27,11 @@ export class JsonInputComponent implements OnInit {
     if (this.jsonForm.valid) {
       const { json } = this.jsonForm.getRawValue();
 
-      try {
-        this.formatterService.formatJson(json).subscribe((object) => {
-          this.jsonObjectCreated.emit(object);
-        });
-      } catch (e) {
-        this.errorMessage = e.message;
-      }
+      this.formatterService.formatJson(json).subscribe((object) => {
+        this.jsonObjectCreated.emit(object);
+      }, (error => {
+        this.errorMessage = error.message;
+      }));
     }
   }
 }

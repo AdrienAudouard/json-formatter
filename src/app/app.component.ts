@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import {JsonObject} from './models/json-object';
+import {NavigationEnd, Router} from '@angular/router';
+
+declare let gtag: any;
+declare let env: any;
 
 @Component({
   selector: 'app-root',
@@ -8,6 +12,13 @@ import {JsonObject} from './models/json-object';
 })
 export class AppComponent {
   jsonObjects: JsonObject[] = [];
+
+  constructor() {
+    gtag('config', env.ga,
+      { page_path: '/' }
+    );
+  }
+
 
   public onNewJsonObject($event: JsonObject): void {
     this.jsonObjects.push($event);

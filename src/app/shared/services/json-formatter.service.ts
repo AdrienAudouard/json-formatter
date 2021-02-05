@@ -2,22 +2,28 @@ import { Injectable } from '@angular/core';
 import {JsonObject} from '../../models/json-object';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
+import {GoogleAnalyticsService} from './google-analytics.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JsonFormatterService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private ga: GoogleAnalyticsService) { }
 
   public formatJson(jsonStr: string): Observable<JsonObject> {
     this.setLastValue(jsonStr);
     const obs$ = this.isValidURL(jsonStr) ? this.fetchJson(jsonStr) : of(jsonStr);
-
+    this.sendTryEvent(this.isValidURL(jsonStr));
     return obs$.pipe(
       map((res) => typeof res === 'object' ? res : JSON.parse(res)),
-      map((json) => this.createJsonObject(json))
+      map((json) => this.createJsonObject(json)),
+      tap(() => this.sendResultEvent(true)),
+      catchError((e) => {
+        this.sendResultEvent(false);
+        throw e;
+      })
     );
   }
 
@@ -91,5 +97,14 @@ export class JsonFormatterService {
       '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
       '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
     return pattern.test(str);
+  }
+
+  private sendResultEvent(success: boolean) {
+    console.log('ii');
+    this.ga.eventEmitter('format_json', 'result', success ? 'success' : 'fail');
+  }
+
+  private sendTryEvent(byUrl: boolean): void {
+    this.ga.eventEmitter('format_json', 'try', byUrl ? 'url' : 'text');
   }
 }
